@@ -6,14 +6,24 @@ import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.kylephan.learningapp2.dummy.DummyContent;
-import com.example.kylephan.learningapp2.dummy.DummyContent.DummyItem;
+import com.example.kylephan.learningapp2.Person.PersonContent;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A fragment representing a list of Items.
@@ -28,6 +38,10 @@ public class ItemFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+
+    public static final List<PersonContent> PEOPLE = new ArrayList<PersonContent>();
+    public static final Map<String, PersonContent> PEOPLE_MAP = new HashMap<String, PersonContent>();
+
 
 
     /**
@@ -54,6 +68,7 @@ public class ItemFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+        readJSON();
     }
 
     @Override
@@ -70,7 +85,7 @@ public class ItemFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(PEOPLE, mListener));
         }
         return view;
     }
@@ -93,6 +108,60 @@ public class ItemFragment extends Fragment {
         mListener = null;
     }
 
+    private String findJSON() {
+
+        String json = null;
+        try {
+            InputStream is = getActivity().getAssets().open("sample.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Log.e("JSON", json);
+        return json;
+    }
+
+    private void readJSON() {
+        try {
+            JSONArray jsonArray = new JSONArray(findJSON());
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String id = jsonObject.getString("_id");
+                int index = jsonObject.getInt("index");
+                String balance = jsonObject.getString("balance");
+                String name = jsonObject.getString("name");
+                StringBuilder info = new StringBuilder();
+
+                info.append("Age: " + jsonObject.getString("age") + "\n");
+                info.append("Gender: " + jsonObject.getString("gender") + "\n");
+                info.append("Company: " + jsonObject.getString("company") + "\n");
+                info.append("Email: " + jsonObject.getString("email") + "\n");
+                info.append("Phone: " + jsonObject.getString("phone") + "\n");
+                info.append("Address: " + jsonObject.getString("address") + "\n");
+
+                String bio = jsonObject.getString("about");
+
+                //Add your values in your `ArrayList` as below:
+
+                Log.e("ahhh", id + balance + name + info.toString() + bio);
+                PersonContent person = new PersonContent(id, index, balance, name, info.toString(), bio);
+
+                PEOPLE.add(person);
+                PEOPLE_MAP.put(id, person);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -105,6 +174,6 @@ public class ItemFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(PersonContent item);
     }
 }

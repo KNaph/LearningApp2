@@ -10,10 +10,10 @@
         android:orientation="vertical"
         android:padding="10dp">
         <TextView
-            android:id="@+id/fragment_item_id"
+            android:id="@+id/detail_person_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:textSize="28sp"
             />
         <View
@@ -23,11 +23,11 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"/>
         <TextView
-            android:id="@+id/fragment_item_title"
+            android:id="@+id/detail_person_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:textSize="26sp"
+            android:textSize="22sp"
             />
         <View
             android:layout_width="fill_parent"
@@ -36,7 +36,33 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"/>
         <TextView
-            android:id="@+id/fragment_item_desc"
+            android:id="@+id/detail_person_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textSize="24sp"
+            />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryDark"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/detail_person_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textSize="24sp"
+            />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryDark"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/detail_person_bio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="4"

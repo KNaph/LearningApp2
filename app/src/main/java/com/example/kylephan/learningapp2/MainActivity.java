@@ -1,11 +1,10 @@
 package com.example.kylephan.learningapp2;
 
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.kylephan.learningapp2.dummy.DummyContent;
+import com.example.kylephan.learningapp2.Person.PersonContent;
 
 public class MainActivity extends AppCompatActivity implements ItemFragment.OnListFragmentInteractionListener {
 
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements ItemFragment.OnLi
 
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(PersonContent item) {
         // Capture the course fragment from the activity layout
         DetailFragment detailFragment = (DetailFragment)
                 getFragmentManager().findFragmentById(R.id.fragDetail_frag);

@@ -7,13 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.kylephan.learningapp2.Person.PersonContent;
 import com.example.kylephan.learningapp2.dummy.DummyContent;
 
 
 public class DetailFragment extends Fragment {
 
     public static final String DETAIL_PARAM = "detail_param";
-    private DummyContent.DummyItem mFragmentItem;
+    private PersonContent mFragmentItem;
 
 
     public DetailFragment() {
@@ -35,7 +36,7 @@ public class DetailFragment extends Fragment {
         return fragment;
     }
 
-    public static DetailFragment getDetailFragment(DummyContent.DummyItem item) {
+    public static DetailFragment getDetailFragment(PersonContent item) {
         DetailFragment fragment = new DetailFragment();
         Bundle args = new Bundle();
         args.putSerializable(DETAIL_PARAM, item);
@@ -47,7 +48,7 @@ public class DetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mFragmentItem = (DummyContent.DummyItem) getArguments().getSerializable(DETAIL_PARAM);
+            mFragmentItem = (PersonContent) getArguments().getSerializable(DETAIL_PARAM);
         }
     }
 
@@ -56,26 +57,33 @@ public class DetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_detail, container, false);
-        if (mFragmentItem == null) {
-            mFragmentItem = DummyContent.ITEMS.get(0);
-        }
-        TextView fragmentItemId = (TextView) v.findViewById(R.id.fragment_item_id);
-        fragmentItemId.setText(mFragmentItem.id);
-        TextView fragmentItemTitle = (TextView) v.findViewById(R.id.fragment_item_title);
-        fragmentItemTitle.setText(mFragmentItem.title);
-        TextView fragmentItemDesc = (TextView) v.findViewById(R.id.fragment_item_desc);
-        fragmentItemDesc.setText(mFragmentItem.shortDesc);
+//        if (mFragmentItem == null) {
+//            mFragmentItem = DummyContent.ITEMS.get(0);
+//        }
+        TextView detailPersonId = (TextView) v.findViewById(R.id.detail_person_id);
+        detailPersonId.setText(mFragmentItem.id);
+        TextView detailPersonBalance = (TextView) v.findViewById(R.id.detail_person_balance);
+        detailPersonBalance.setText(mFragmentItem.balance);
+        TextView detailPersonName = (TextView) v.findViewById(R.id.detail_person_name);
+        detailPersonName.setText(mFragmentItem.name);
+        TextView detailPersonInfo = (TextView) v.findViewById(R.id.detail_person_info);
+        detailPersonInfo.setText(mFragmentItem.info);
+        TextView detailPersonBio = (TextView) v.findViewById(R.id.detail_person_bio);
+        detailPersonBio.setText(mFragmentItem.bio);
 
         return v;
     }
 
-    public void updateCourseItemView(DummyContent.DummyItem item) {
-        TextView fragmentItemId = (TextView) getActivity().findViewById(R.id.fragment_item_id);
-        fragmentItemId.setText(item.id);
-        TextView fragmentItemTitle = (TextView) getActivity().findViewById(R.id.fragment_item_title);
-        fragmentItemTitle.setText(item.title);
-        TextView fragmentItemDesc = (TextView) getActivity().findViewById(R.id.fragment_item_desc);
-        fragmentItemDesc.setText(item.shortDesc);
-
+    public void updateCourseItemView(PersonContent item) {
+        TextView detailPersonId = (TextView) getActivity().findViewById(R.id.detail_person_id);
+        detailPersonId.setText(item.id);
+        TextView detailPersonBalance = (TextView) getActivity().findViewById(R.id.detail_person_balance);
+        detailPersonBalance.setText(item.balance);
+        TextView detailPersonName = (TextView) getActivity().findViewById(R.id.detail_person_name);
+        detailPersonName.setText(item.name);
+        TextView detailPersonInfo = (TextView) getActivity().findViewById(R.id.detail_person_info);
+        detailPersonInfo.setText(item.info);
+        TextView detailPersonBio = (TextView) getActivity().findViewById(R.id.detail_person_bio);
+        detailPersonBio.setText(item.bio);
     }
 }
